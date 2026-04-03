@@ -1,3 +1,4 @@
+import string
 def most_common_word(story: tuple[str, ...]) -> str:
     """
     This function returns the most common word
@@ -6,18 +7,17 @@ def most_common_word(story: tuple[str, ...]) -> str:
     """
     list1 = []
     dict1 = {}
-
     for sentence in story:
         words = sentence.split()
         for word in words:
             word = word.lower()
-            word = word.replace('.', '')
-            word = word.replace(',', '')
+            for punctuation in string.punctuation:
+                word = word.replace(punctuation,  '')
             list1.append(word)
     set1 = set(list1.copy())
     for word in set1:
         dict1[word] = list1.count(word)
-
+    print(dict1)
     return f"{max(dict1, key=lambda k: dict1[k])} is {dict1[max(dict1, key=lambda k: dict1[k])]} times"
 
 story = (
